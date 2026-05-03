@@ -23,6 +23,7 @@ export default function Home() {
               views={bookmark.visitCount}
               lastViewedDate={bookmark.lastVisited}
               addedDate={bookmark.createdAt}
+              isArchived={bookmark.isArchived}
             />
           ))}
       </div>
