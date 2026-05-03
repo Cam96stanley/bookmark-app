@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
+import { Manrope } from "next/font/google";
+import "../ui/styles/globals.css";
+import { Toaster } from "sonner";
+import { SidebarProvider } from "@/context/SidebarContext";
+import { cn } from "@/lib/utils";
+import Header from "@/ui/components/Header";
+import SideNav from "@/ui/components/SideNav";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const manrope = Manrope({
+  variable: "--font-manrope",
   subsets: ["latin"],
 });
 
@@ -23,11 +23,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
-    >
-      <body className="min-h-full flex flex-col">{children}</body>
+    <html lang="en" className={cn("h-full", "antialiased", manrope.variable)}>
+      <body className="min-h-screen">
+        <SidebarProvider>
+          <div className="flex h-screen overflow-hidden">
+            <SideNav />
+            <div className="flex flex-col flex-1 min-w-0 overflow-y-auto">
+              <Header />
+              <main className="flex-1">{children}</main>
+            </div>
+          </div>
+        </SidebarProvider>
+        <Toaster position="top-right" offset={100} />
+      </body>
     </html>
   );
 }
