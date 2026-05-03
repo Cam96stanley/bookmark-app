@@ -1,11 +1,15 @@
-import { bookmarks } from "@/data/data";
+import { prisma } from "@/lib/prisma";
 import { createMetadata } from "@/lib/seo";
 import BookmarkCard from "@/ui/components/BookmarkCard";
 import SortButton from "@/ui/components/SortButton";
 
 export const metadata = createMetadata({ title: "Home" });
 
-export default function Home() {
+export default async function Home() {
+  const bookmarks = await prisma.bookmark.findMany({
+    where: { isArchived: false },
+  });
+
   return (
     <div className="flex flex-col px-4 py-10 md:px-8 md:py-9">
       <div className="flex items-center justify-between pb-5">
@@ -13,9 +17,7 @@ export default function Home() {
         <SortButton />
       </div>
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {bookmarks
-          .filter((bookmark) => !bookmark.isArchived)
-          .map((bookmark) => (
+        {bookmarks.map((bookmark) => (
             <BookmarkCard
               key={bookmark.url}
               favicon={bookmark.favicon}

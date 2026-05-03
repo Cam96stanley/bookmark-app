@@ -4,6 +4,7 @@ import {
   EyeIcon,
 } from "@phosphor-icons/react/ssr";
 import Image from "next/image";
+import { formatDate } from "@/lib/formatDate";
 import ActionsButton from "./ActionsButton";
 
 type BookmarkCardProps = {
@@ -13,8 +14,8 @@ type BookmarkCardProps = {
   description: string;
   tags: string[];
   views: number;
-  lastViewedDate: string | null;
-  addedDate: string;
+  lastViewedDate: Date | null;
+  addedDate: Date;
   isArchived: boolean;
 };
 
@@ -29,15 +30,6 @@ export default function BookmarkCard({
   addedDate,
   isArchived,
 }: BookmarkCardProps) {
-  const formatDate = (date: string): string => {
-    const newDate = new Date(date);
-    const formatted = newDate.toLocaleDateString("en-GB", {
-      day: "2-digit",
-      month: "short",
-    });
-    return formatted;
-  };
-
   return (
     <div className="flex flex-col border rounded-sm bg-secondary px-4 pt-4">
       <div className="flex items-center gap-2 w-full border-b pb-4">
