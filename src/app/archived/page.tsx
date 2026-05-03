@@ -1,6 +1,9 @@
 import { bookmarks } from "@/data/data";
+import { createMetadata } from "@/lib/seo";
 import BookmarkCard from "@/ui/components/BookmarkCard";
 import SortButton from "@/ui/components/SortButton";
+
+export const metadata = createMetadata({ title: "Archived" });
 
 export default function ArchivePage() {
   return (
