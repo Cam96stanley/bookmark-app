@@ -8,6 +8,7 @@ import { formatDate } from "@/lib/formatDate";
 import ActionsButton from "./ActionsButton";
 
 type BookmarkCardProps = {
+  id: string,
   favicon: string;
   title: string;
   url: string;
@@ -29,6 +30,7 @@ export default function BookmarkCard({
   lastViewedDate,
   addedDate,
   isArchived,
+  id,
 }: BookmarkCardProps) {
   return (
     <div className="flex flex-col border rounded-sm bg-secondary px-4 pt-4">
@@ -48,6 +50,7 @@ export default function BookmarkCard({
             <p className="text-preset-5">{url}</p>
           </div>
           <ActionsButton
+            id={id}
             url={url}
             title={title}
             description={description}

@@ -20,6 +20,7 @@ export default async function ArchivePage() {
         {bookmarks.map((bookmark) => (
           <BookmarkCard
             key={bookmark.url}
+            id={bookmark.id}
             favicon={bookmark.favicon}
             title={bookmark.title}
             url={bookmark.url}

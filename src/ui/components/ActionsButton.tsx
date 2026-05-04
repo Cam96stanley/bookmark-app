@@ -19,6 +19,7 @@ import Dropdown, { type DropdownItem } from "./Dropdown";
 import EditModal from "./EditModal";
 
 type ActionsButtonProps = {
+  id: string;
   url: string;
   title: string;
   description: string;
@@ -29,6 +30,7 @@ type ActionsButtonProps = {
 };
 
 export default function ActionsButton({
+  id,
   url,
   title,
   description,
@@ -167,12 +169,13 @@ export default function ActionsButton({
       />
 
       <ArchiveModal
+        id={id}
         open={archiveOpen}
         onOpenChange={setArchiveOpen}
         isArchived={isArchived}
       />
 
-      <DeleteModal open={deleteOpen} onOpenChange={setDeleteOpen} />
+      <DeleteModal id={id} open={deleteOpen} onOpenChange={setDeleteOpen} />
     </>
   );
 }

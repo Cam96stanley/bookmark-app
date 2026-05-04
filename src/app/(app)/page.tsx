@@ -19,7 +19,8 @@ export default async function Home() {
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
         {bookmarks.map((bookmark) => (
           <BookmarkCard
-            key={bookmark.url}
+            key={bookmark.id}
+            id={bookmark.id}
             favicon={bookmark.favicon}
             title={bookmark.title}
             url={bookmark.url}

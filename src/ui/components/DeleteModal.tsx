@@ -1,3 +1,5 @@
+"use client"
+
 import { toast } from "@/lib/toast";
 import {
   Dialog,
@@ -9,20 +11,53 @@ import {
   DialogTitle,
 } from "@/ui/primitives/Dialog";
 import { Button } from "../primitives/Button";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
-type ArchiveBookmarkDialogProps = {
+type DeleteBookmarkDialogProps = {
+  id: string;
   open: boolean;
   onOpenChange: (open: boolean) => void;
 };
 
-export default function ArchiveModal({
+export default function DeleteModal({
+  id,
   open,
   onOpenChange,
-}: ArchiveBookmarkDialogProps) {
-  const handleDelete = () => {
-    onOpenChange(false);
-    toast.trash("Bookmark deleted.");
-  };
+}: DeleteBookmarkDialogProps) {
+  const router = useRouter();
+    const [loading, setLoading] = useState(false);
+  
+    const handleDelete = async () => {
+
+      if (!id) {
+        console.log("NO ID")
+    return;
+  }
+      setLoading(true);
+  
+      try {
+        const res = await fetch(`/api/bookmarks/delete/${id}`, {
+          method: "DELETE",
+        });
+  
+        if (!res.ok) {
+          toast.error("Failed to update bookmark");
+          setLoading(false);
+          return;
+        }
+  
+        onOpenChange(false);
+  
+        toast.trash("Bookmark deleted.");
+  
+        router.refresh();
+      } catch (_error) {
+        toast.error("Somthing went wrong.");
+      } finally {
+        setLoading(false);
+      }
+    };
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -35,10 +70,10 @@ export default function ArchiveModal({
         </DialogDescription>
         <DialogFooter>
           <DialogClose asChild>
-            <Button variant={"secondary"}>Cancel</Button>
+            <Button variant={"secondary"} disabled={loading}>Cancel</Button>
           </DialogClose>
-          <Button variant={"destructive"} onClick={handleDelete}>
-            Delete Permanently
+          <Button variant={"destructive"} onClick={handleDelete} disabled={loading}>
+            {loading ? "Deleting..." : "Permanently delete" }
           </Button>
         </DialogFooter>
       </DialogContent>

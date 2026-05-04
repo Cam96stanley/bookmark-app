@@ -9,24 +9,47 @@ import {
   DialogTitle,
 } from "@/ui/primitives/Dialog";
 import { Button } from "../primitives/Button";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 type ArchiveBookmarkDialogProps = {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   isArchived: boolean;
+  id: string;
 };
 
 export default function ArchiveModal({
   open,
   onOpenChange,
   isArchived,
+  id,
 }: ArchiveBookmarkDialogProps) {
-  const handleArchive = () => {
-    onOpenChange(false);
-    if (isArchived) {
-      toast.archive("Bookmark Unarchived.");
-    } else {
-      toast.archive("Bookmark Archived");
+  const router = useRouter();
+  const [loading, setLoading] = useState(false);
+
+  const handleArchive = async () => {
+    setLoading(true);
+
+    try {
+      const res = await fetch(`/api/bookmarks/archive/${id}`, {
+        method: "PATCH",
+      });
+
+      if (!res.ok) {
+        toast.error("Failed to update bookmark");
+        return;
+      }
+
+      onOpenChange(false);
+
+      toast.success(isArchived ? "Bookmark unarchived" : "Bookmark archived");
+
+      router.refresh();
+    } catch (_error) {
+      toast.error("Somthing went wrong.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -39,14 +62,14 @@ export default function ArchiveModal({
           </DialogTitle>
         </DialogHeader>
         <DialogDescription className="text-preset-4-md">
-          Are you sure you want to archive this bookmark?
+          Are you sure you want to {isArchived ? "unarchive" : "archive"} this bookmark?
         </DialogDescription>
         <DialogFooter>
           <DialogClose asChild>
-            <Button variant={"secondary"}>Cancel</Button>
+            <Button variant={"secondary"} disabled={loading}>Cancel</Button>
           </DialogClose>
-          <Button onClick={handleArchive}>
-            {isArchived ? "Unarchive" : "Archive"}
+          <Button onClick={handleArchive} disabled={loading}>
+            {loading ? "Updating..." : isArchived ? "Unarchive" : "Archive" }
           </Button>
         </DialogFooter>
       </DialogContent>
