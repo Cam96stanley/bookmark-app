@@ -158,10 +158,10 @@ export default function EditModal({
         onOpenAutoFocus={(e) => e.preventDefault()}
       >
         <DialogHeader>
-          <DialogTitle>Edit Bookmark</DialogTitle>
+          <DialogTitle className="text-preset-1">Edit Bookmark</DialogTitle>
         </DialogHeader>
 
-        <label htmlFor="title">Title *</label>
+        <label className="text-preset-4" htmlFor="title">Title *</label>
         <Input
           id="title"
           value={title}
@@ -169,7 +169,7 @@ export default function EditModal({
         />
         {errors.title && <p className="text-red-500">{errors.title}</p>}
 
-        <label htmlFor="description">Description *</label>
+        <label className="text-preset-4" htmlFor="description">Description *</label>
         <Textarea
           id="description"
           value={description}
@@ -179,7 +179,7 @@ export default function EditModal({
           <p className="text-red-500">{errors.description}</p>
         )}
 
-        <label htmlFor="url">Website URL *</label>
+        <label className="text-preset-4" htmlFor="url">Website URL *</label>
         <Input id="url" value={url} onChange={(e) => setUrl(e.target.value)} />
         {errors.url && <p className="text-red-500">{errors.url}</p>}
 
@@ -196,7 +196,7 @@ export default function EditModal({
           </div>
         )}
 
-        <label htmlFor="tags">Tags *</label>
+        <label className="text-preset-4" htmlFor="tags">Tags *</label>
         <Input
           id="tags"
           value={tags}

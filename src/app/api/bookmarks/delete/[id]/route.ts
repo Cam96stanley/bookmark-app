@@ -1,6 +1,7 @@
 import { auth } from "@/auth";
 import { sendError, sendSuccess } from "@/lib/api/response";
 import { prisma } from "@/lib/prisma";
+import { revalidatePath } from "next/cache";
 
 export async function DELETE(
   _req: Request,
@@ -25,6 +26,8 @@ export async function DELETE(
     if (result.count === 0) {
       return sendError("Bookmark not found", 404);
     }
+
+    revalidatePath("/archived");
 
     return sendSuccess("Bookmark deleted.");
   } catch (error) {

@@ -134,13 +134,10 @@ export default function AddBookmarkModal({
         onOpenAutoFocus={(e) => e.preventDefault()}
       >
         <DialogHeader>
-          <DialogTitle>Add Bookmark</DialogTitle>
-          <DialogDescription>
-            Save a new website bookmark with title, URL, tags, and description.
-          </DialogDescription>
+          <DialogTitle className="text-preset-1">Add Bookmark</DialogTitle>
         </DialogHeader>
 
-        <label htmlFor="title">Title *</label>
+        <label className="text-preset-4" htmlFor="title">Title *</label>
         <Input
           id="title"
           value={title}
@@ -149,7 +146,7 @@ export default function AddBookmarkModal({
         />
         {errors.title && <p className="text-red-500">{errors.title}</p>}
 
-        <label htmlFor="description">Description *</label>
+        <label className="text-preset-4" htmlFor="description">Description *</label>
         <Textarea
           id="description"
           value={description}
@@ -160,7 +157,7 @@ export default function AddBookmarkModal({
           <p className="text-red-500">{errors.description}</p>
         )}
 
-        <label htmlFor="url">Website URL *</label>
+        <label className="text-preset-4" htmlFor="url">Website URL *</label>
         <Input
           id="url"
           value={url}
@@ -182,7 +179,7 @@ export default function AddBookmarkModal({
           </div>
         )}
 
-        <label htmlFor="tags">Tags *</label>
+        <label className="text-preset-4" htmlFor="tags">Tags *</label>
         <Input
           id="tags"
           value={tags}

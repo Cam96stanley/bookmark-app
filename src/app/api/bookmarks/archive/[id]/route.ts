@@ -1,3 +1,4 @@
+import { revalidatePath } from "next/cache";
 import { auth } from "@/auth";
 import { sendError, sendSuccess } from "@/lib/api/response";
 import { prisma } from "@/lib/prisma";
@@ -32,6 +33,9 @@ export async function PATCH(
         isArchived: !existing.isArchived,
       },
     });
+
+    revalidatePath("/archived");
+    revalidatePath("/");
 
     return sendSuccess(updated);
   } catch (error) {

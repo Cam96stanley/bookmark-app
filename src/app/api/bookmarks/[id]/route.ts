@@ -1,3 +1,4 @@
+import { revalidatePath } from "next/cache";
 import { auth } from "@/auth";
 import { sendError, sendSuccess } from "@/lib/api/response";
 import { prisma } from "@/lib/prisma";
@@ -44,6 +45,8 @@ export async function PATCH(req: Request, { params }: Context) {
       where: { id },
       data: parsed.data,
     });
+
+    revalidatePath("/");
 
     return sendSuccess(updated);
   } catch (error) {
