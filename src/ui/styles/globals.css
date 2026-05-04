@@ -5,6 +5,7 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
+  --color-light-text: oklch(0.4602 0.0203 182.8);
   --color-light-gray: oklch(0.4202 0 0);
   --color-dark-hover: oklch(0.272244 0.046685 192.4891);
   --color-red-light: oklch(0.6624 0.2193 27.25);

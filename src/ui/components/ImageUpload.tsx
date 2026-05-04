@@ -7,9 +7,11 @@ import { useRef, useState } from "react";
 type ImageUploadProps = {
   defaultImage?: string;
   onChange?: (file: File) => void;
+  id?: string;
 };
 
 export default function ImageUpload({
+  id,
   defaultImage,
   onChange,
 }: ImageUploadProps) {
@@ -41,6 +43,7 @@ export default function ImageUpload({
         <ImageIcon size={24} className="text-muted-foreground" />
       )}
       <input
+        id={id}
         ref={inputRef}
         type="file"
         accept="image/*"

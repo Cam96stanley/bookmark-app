@@ -5,16 +5,18 @@ import {
   MagnifyingGlassIcon,
   PlusIcon,
 } from "@phosphor-icons/react/ssr";
-import Image from "next/image";
 import { useState } from "react";
 import { useSidebar } from "@/context/SidebarContext";
 import { Button } from "../primitives/Button";
 import { Input } from "../primitives/Input";
 import AddBookmarkModal from "./AddBookmarkModal";
+import UserActionsButton from "./UserActionsButton";
+import { useSession } from "next-auth/react";
 
 export default function Header() {
   const { toggleSidebar } = useSidebar();
   const [addOpen, setAddOpen] = useState(false);
+  const { data: session } = useSession();
 
   return (
     <>
@@ -47,7 +49,10 @@ export default function Header() {
           <PlusIcon size={20} />
           Add Bookmarks
         </Button>
-        <Image src={"/image-avatar.webp"} alt="" width={40} height={40} />
+        <UserActionsButton
+          name={session?.user?.name ?? ""}
+          email={session?.user?.email ?? ""}
+        />
       </div>
 
       <AddBookmarkModal open={addOpen} onOpenChange={setAddOpen} />

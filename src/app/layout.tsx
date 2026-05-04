@@ -6,6 +6,7 @@ import { SidebarProvider } from "@/context/SidebarContext";
 import { cn } from "@/lib/utils";
 import Header from "@/ui/components/Header";
 import SideNav from "@/ui/components/SideNav";
+import { SessionProvider } from "next-auth/react";
 
 const manrope = Manrope({
   variable: "--font-manrope",
@@ -26,16 +27,9 @@ export default function RootLayout({
   return (
     <html lang="en" className={cn("h-full", "antialiased", manrope.variable)}>
       <body className="min-h-screen">
-        <SidebarProvider>
-          <div className="flex h-screen overflow-hidden">
-            <SideNav />
-            <div className="flex flex-col flex-1 min-w-0 overflow-y-auto">
-              <Header />
-              <main className="flex-1">{children}</main>
-            </div>
-          </div>
-        </SidebarProvider>
-        <Toaster position="top-right" offset={100} />
+        <SessionProvider>
+          {children}
+        </SessionProvider>
       </body>
     </html>
   );

@@ -8,7 +8,7 @@ export const metadata = createMetadata({ title: "Archived" });
 export default async function ArchivePage() {
   const bookmarks = await prisma.bookmark.findMany({
     where: { isArchived: true },
-  })
+  });
 
   return (
     <div className="flex flex-col px-4 py-10 md:px-8 md:py-9">
@@ -18,19 +18,19 @@ export default async function ArchivePage() {
       </div>
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
         {bookmarks.map((bookmark) => (
-            <BookmarkCard
-              key={bookmark.url}
-              favicon={bookmark.favicon}
-              title={bookmark.title}
-              url={bookmark.url}
-              description={bookmark.description}
-              isArchived={bookmark.isArchived}
-              tags={bookmark.tags}
-              views={bookmark.visitCount}
-              lastViewedDate={bookmark.lastVisited}
-              addedDate={bookmark.createdAt}
-            />
-          ))}
+          <BookmarkCard
+            key={bookmark.url}
+            favicon={bookmark.favicon}
+            title={bookmark.title}
+            url={bookmark.url}
+            description={bookmark.description}
+            isArchived={bookmark.isArchived}
+            tags={bookmark.tags}
+            views={bookmark.visitCount}
+            lastViewedDate={bookmark.lastVisited}
+            addedDate={bookmark.createdAt}
+          />
+        ))}
       </div>
     </div>
   );

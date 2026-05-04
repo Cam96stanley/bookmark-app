@@ -18,19 +18,19 @@ export default async function Home() {
       </div>
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
         {bookmarks.map((bookmark) => (
-            <BookmarkCard
-              key={bookmark.url}
-              favicon={bookmark.favicon}
-              title={bookmark.title}
-              url={bookmark.url}
-              description={bookmark.description}
-              tags={bookmark.tags}
-              views={bookmark.visitCount}
-              lastViewedDate={bookmark.lastVisited}
-              addedDate={bookmark.createdAt}
-              isArchived={bookmark.isArchived}
-            />
-          ))}
+          <BookmarkCard
+            key={bookmark.url}
+            favicon={bookmark.favicon}
+            title={bookmark.title}
+            url={bookmark.url}
+            description={bookmark.description}
+            tags={bookmark.tags}
+            views={bookmark.visitCount}
+            lastViewedDate={bookmark.lastVisited}
+            addedDate={bookmark.createdAt}
+            isArchived={bookmark.isArchived}
+          />
+        ))}
       </div>
     </div>
   );

@@ -28,6 +28,7 @@ export type UserMinAggregateOutputType = {
   id: string | null;
   name: string | null;
   email: string | null;
+  password: string | null;
   deletedAt: Date | null;
   createdAt: Date | null;
 };
@@ -36,6 +37,7 @@ export type UserMaxAggregateOutputType = {
   id: string | null;
   name: string | null;
   email: string | null;
+  password: string | null;
   deletedAt: Date | null;
   createdAt: Date | null;
 };
@@ -44,6 +46,7 @@ export type UserCountAggregateOutputType = {
   id: number;
   name: number;
   email: number;
+  password: number;
   deletedAt: number;
   createdAt: number;
   _all: number;
@@ -53,6 +56,7 @@ export type UserMinAggregateInputType = {
   id?: true;
   name?: true;
   email?: true;
+  password?: true;
   deletedAt?: true;
   createdAt?: true;
 };
@@ -61,6 +65,7 @@ export type UserMaxAggregateInputType = {
   id?: true;
   name?: true;
   email?: true;
+  password?: true;
   deletedAt?: true;
   createdAt?: true;
 };
@@ -69,6 +74,7 @@ export type UserCountAggregateInputType = {
   id?: true;
   name?: true;
   email?: true;
+  password?: true;
   deletedAt?: true;
   createdAt?: true;
   _all?: true;
@@ -157,6 +163,7 @@ export type UserGroupByOutputType = {
   id: string;
   name: string;
   email: string;
+  password: string;
   deletedAt: Date | null;
   createdAt: Date;
   _count: UserCountAggregateOutputType | null;
@@ -184,6 +191,7 @@ export type UserWhereInput = {
   id?: Prisma.StringFilter<"User"> | string;
   name?: Prisma.StringFilter<"User"> | string;
   email?: Prisma.StringFilter<"User"> | string;
+  password?: Prisma.StringFilter<"User"> | string;
   deletedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null;
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string;
   bookmarks?: Prisma.BookmarkListRelationFilter;
@@ -193,6 +201,7 @@ export type UserOrderByWithRelationInput = {
   id?: Prisma.SortOrder;
   name?: Prisma.SortOrder;
   email?: Prisma.SortOrder;
+  password?: Prisma.SortOrder;
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder;
   createdAt?: Prisma.SortOrder;
   bookmarks?: Prisma.BookmarkOrderByRelationAggregateInput;
@@ -206,6 +215,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<
     OR?: Prisma.UserWhereInput[];
     NOT?: Prisma.UserWhereInput | Prisma.UserWhereInput[];
     name?: Prisma.StringFilter<"User"> | string;
+    password?: Prisma.StringFilter<"User"> | string;
     deletedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null;
     createdAt?: Prisma.DateTimeFilter<"User"> | Date | string;
     bookmarks?: Prisma.BookmarkListRelationFilter;
@@ -217,6 +227,7 @@ export type UserOrderByWithAggregationInput = {
   id?: Prisma.SortOrder;
   name?: Prisma.SortOrder;
   email?: Prisma.SortOrder;
+  password?: Prisma.SortOrder;
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder;
   createdAt?: Prisma.SortOrder;
   _count?: Prisma.UserCountOrderByAggregateInput;
@@ -235,6 +246,7 @@ export type UserScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"User"> | string;
   name?: Prisma.StringWithAggregatesFilter<"User"> | string;
   email?: Prisma.StringWithAggregatesFilter<"User"> | string;
+  password?: Prisma.StringWithAggregatesFilter<"User"> | string;
   deletedAt?:
     | Prisma.DateTimeNullableWithAggregatesFilter<"User">
     | Date
@@ -247,6 +259,7 @@ export type UserCreateInput = {
   id?: string;
   name: string;
   email: string;
+  password: string;
   deletedAt?: Date | string | null;
   createdAt?: Date | string;
   bookmarks?: Prisma.BookmarkCreateNestedManyWithoutUserInput;
@@ -256,6 +269,7 @@ export type UserUncheckedCreateInput = {
   id?: string;
   name: string;
   email: string;
+  password: string;
   deletedAt?: Date | string | null;
   createdAt?: Date | string;
   bookmarks?: Prisma.BookmarkUncheckedCreateNestedManyWithoutUserInput;
@@ -265,6 +279,7 @@ export type UserUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string;
   name?: Prisma.StringFieldUpdateOperationsInput | string;
   email?: Prisma.StringFieldUpdateOperationsInput | string;
+  password?: Prisma.StringFieldUpdateOperationsInput | string;
   deletedAt?:
     | Prisma.NullableDateTimeFieldUpdateOperationsInput
     | Date
@@ -278,6 +293,7 @@ export type UserUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string;
   name?: Prisma.StringFieldUpdateOperationsInput | string;
   email?: Prisma.StringFieldUpdateOperationsInput | string;
+  password?: Prisma.StringFieldUpdateOperationsInput | string;
   deletedAt?:
     | Prisma.NullableDateTimeFieldUpdateOperationsInput
     | Date
@@ -291,6 +307,7 @@ export type UserCreateManyInput = {
   id?: string;
   name: string;
   email: string;
+  password: string;
   deletedAt?: Date | string | null;
   createdAt?: Date | string;
 };
@@ -299,6 +316,7 @@ export type UserUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string;
   name?: Prisma.StringFieldUpdateOperationsInput | string;
   email?: Prisma.StringFieldUpdateOperationsInput | string;
+  password?: Prisma.StringFieldUpdateOperationsInput | string;
   deletedAt?:
     | Prisma.NullableDateTimeFieldUpdateOperationsInput
     | Date
@@ -311,6 +329,7 @@ export type UserUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string;
   name?: Prisma.StringFieldUpdateOperationsInput | string;
   email?: Prisma.StringFieldUpdateOperationsInput | string;
+  password?: Prisma.StringFieldUpdateOperationsInput | string;
   deletedAt?:
     | Prisma.NullableDateTimeFieldUpdateOperationsInput
     | Date
@@ -323,6 +342,7 @@ export type UserCountOrderByAggregateInput = {
   id?: Prisma.SortOrder;
   name?: Prisma.SortOrder;
   email?: Prisma.SortOrder;
+  password?: Prisma.SortOrder;
   deletedAt?: Prisma.SortOrder;
   createdAt?: Prisma.SortOrder;
 };
@@ -331,6 +351,7 @@ export type UserMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder;
   name?: Prisma.SortOrder;
   email?: Prisma.SortOrder;
+  password?: Prisma.SortOrder;
   deletedAt?: Prisma.SortOrder;
   createdAt?: Prisma.SortOrder;
 };
@@ -339,6 +360,7 @@ export type UserMinOrderByAggregateInput = {
   id?: Prisma.SortOrder;
   name?: Prisma.SortOrder;
   email?: Prisma.SortOrder;
+  password?: Prisma.SortOrder;
   deletedAt?: Prisma.SortOrder;
   createdAt?: Prisma.SortOrder;
 };
@@ -390,6 +412,7 @@ export type UserCreateWithoutBookmarksInput = {
   id?: string;
   name: string;
   email: string;
+  password: string;
   deletedAt?: Date | string | null;
   createdAt?: Date | string;
 };
@@ -398,6 +421,7 @@ export type UserUncheckedCreateWithoutBookmarksInput = {
   id?: string;
   name: string;
   email: string;
+  password: string;
   deletedAt?: Date | string | null;
   createdAt?: Date | string;
 };
@@ -434,6 +458,7 @@ export type UserUpdateWithoutBookmarksInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string;
   name?: Prisma.StringFieldUpdateOperationsInput | string;
   email?: Prisma.StringFieldUpdateOperationsInput | string;
+  password?: Prisma.StringFieldUpdateOperationsInput | string;
   deletedAt?:
     | Prisma.NullableDateTimeFieldUpdateOperationsInput
     | Date
@@ -446,6 +471,7 @@ export type UserUncheckedUpdateWithoutBookmarksInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string;
   name?: Prisma.StringFieldUpdateOperationsInput | string;
   email?: Prisma.StringFieldUpdateOperationsInput | string;
+  password?: Prisma.StringFieldUpdateOperationsInput | string;
   deletedAt?:
     | Prisma.NullableDateTimeFieldUpdateOperationsInput
     | Date
@@ -500,6 +526,7 @@ export type UserSelect<
     id?: boolean;
     name?: boolean;
     email?: boolean;
+    password?: boolean;
     deletedAt?: boolean;
     createdAt?: boolean;
     bookmarks?: boolean | Prisma.User$bookmarksArgs<ExtArgs>;
@@ -516,6 +543,7 @@ export type UserSelectCreateManyAndReturn<
     id?: boolean;
     name?: boolean;
     email?: boolean;
+    password?: boolean;
     deletedAt?: boolean;
     createdAt?: boolean;
   },
@@ -530,6 +558,7 @@ export type UserSelectUpdateManyAndReturn<
     id?: boolean;
     name?: boolean;
     email?: boolean;
+    password?: boolean;
     deletedAt?: boolean;
     createdAt?: boolean;
   },
@@ -540,6 +569,7 @@ export type UserSelectScalar = {
   id?: boolean;
   name?: boolean;
   email?: boolean;
+  password?: boolean;
   deletedAt?: boolean;
   createdAt?: boolean;
 };
@@ -548,7 +578,7 @@ export type UserOmit<
   ExtArgs extends
     runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = runtime.Types.Extensions.GetOmit<
-  "id" | "name" | "email" | "deletedAt" | "createdAt",
+  "id" | "name" | "email" | "password" | "deletedAt" | "createdAt",
   ExtArgs["result"]["user"]
 >;
 export type UserInclude<
@@ -580,6 +610,7 @@ export type $UserPayload<
       id: string;
       name: string;
       email: string;
+      password: string;
       deletedAt: Date | null;
       createdAt: Date;
     },
@@ -1188,6 +1219,7 @@ export interface UserFieldRefs {
   readonly id: Prisma.FieldRef<"User", "String">;
   readonly name: Prisma.FieldRef<"User", "String">;
   readonly email: Prisma.FieldRef<"User", "String">;
+  readonly password: Prisma.FieldRef<"User", "String">;
   readonly deletedAt: Prisma.FieldRef<"User", "DateTime">;
   readonly createdAt: Prisma.FieldRef<"User", "DateTime">;
 }

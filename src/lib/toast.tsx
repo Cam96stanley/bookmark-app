@@ -1,3 +1,4 @@
+import { ExclamationMarkIcon } from "@phosphor-icons/react";
 import {
   ArchiveIcon,
   ArrowCounterClockwiseIcon,
@@ -23,4 +24,6 @@ export const toast = {
     sonnerToast(message, { icon: <ArchiveIcon className="size-4" /> }),
   trash: (message: string) =>
     sonnerToast(message, { icon: <TrashIcon className="size-4" /> }),
+  error: (message: string) =>
+    sonnerToast(message, { icon: <ExclamationMarkIcon className="size-4" /> }),
 };
