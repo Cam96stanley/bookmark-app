@@ -1,10 +1,10 @@
-import { prisma } from "@/lib/prisma";
-import { sendError, sendSuccess } from "@/lib/api/response";
 import { auth } from "@/auth";
+import { sendError, sendSuccess } from "@/lib/api/response";
+import { prisma } from "@/lib/prisma";
 
 export async function PATCH(
   _req: Request,
-  context: { params: Promise<{ id: string }> }
+  context: { params: Promise<{ id: string }> },
 ) {
   try {
     const session = await auth();

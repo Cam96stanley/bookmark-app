@@ -159,6 +159,7 @@ export default function ActionsButton({
       </div>
 
       <EditModal
+        id={id}
         url={url}
         title={title}
         description={description}

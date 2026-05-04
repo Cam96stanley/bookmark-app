@@ -8,7 +8,7 @@ import { formatDate } from "@/lib/formatDate";
 import ActionsButton from "./ActionsButton";
 
 type BookmarkCardProps = {
-  id: string,
+  id: string;
   favicon: string;
   title: string;
   url: string;

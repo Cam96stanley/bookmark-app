@@ -1,10 +1,10 @@
-import { prisma } from "@/lib/prisma";
-import { sendError, sendSuccess } from "@/lib/api/response";
 import { auth } from "@/auth";
+import { sendError, sendSuccess } from "@/lib/api/response";
+import { prisma } from "@/lib/prisma";
 
 export async function DELETE(
   _req: Request,
-  context: { params: Promise<{ id: string }> }
+  context: { params: Promise<{ id: string }> },
 ) {
   try {
     const session = await auth();
@@ -16,14 +16,14 @@ export async function DELETE(
     const { id } = await context.params;
 
     const result = await prisma.bookmark.deleteMany({
-        where: {
-            id,
-            userId: session.user.id,
-        }
-    })
+      where: {
+        id,
+        userId: session.user.id,
+      },
+    });
 
     if (result.count === 0) {
-        return sendError("Bookmark not found", 404);
+      return sendError("Bookmark not found", 404);
     }
 
     return sendSuccess("Bookmark deleted.");
