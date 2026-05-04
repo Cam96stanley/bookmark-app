@@ -5,13 +5,13 @@ import {
   MagnifyingGlassIcon,
   PlusIcon,
 } from "@phosphor-icons/react/ssr";
+import { useSession } from "next-auth/react";
 import { useState } from "react";
 import { useSidebar } from "@/context/SidebarContext";
 import { Button } from "../primitives/Button";
 import { Input } from "../primitives/Input";
 import AddBookmarkModal from "./AddBookmarkModal";
 import UserActionsButton from "./UserActionsButton";
-import { useSession } from "next-auth/react";
 
 export default function Header() {
   const { toggleSidebar } = useSidebar();

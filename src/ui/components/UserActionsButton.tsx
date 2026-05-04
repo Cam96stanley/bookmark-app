@@ -1,7 +1,10 @@
 "use client";
 
-import { PaletteIcon, SignOutIcon } from "@phosphor-icons/react";
-import { DotsThreeVerticalIcon } from "@phosphor-icons/react";
+import {
+  DotsThreeVerticalIcon,
+  PaletteIcon,
+  SignOutIcon,
+} from "@phosphor-icons/react";
 import { signOut } from "next-auth/react";
 import { useEffect, useRef, useState } from "react";
 import { Button } from "../primitives/Button";

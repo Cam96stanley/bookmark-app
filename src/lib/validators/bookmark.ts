@@ -6,7 +6,6 @@ export const createBookmarkSchema = z.object({
   url: z.url("URL must be valid"),
   description: z.string().min(1, "Description is required"),
   tags: z.array(z.string()).min(1, "At least one tag is required"),
-  userId: z.string().min(1, "User ID is required"),
 });
 
 export const updateBookmarkSchema = createBookmarkSchema.partial().extend({

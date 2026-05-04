@@ -1,8 +1,9 @@
 "use client";
 
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import type React from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "@/lib/toast";
 import { createBookmarkSchema } from "@/lib/validators/bookmark";
 import { Button } from "../primitives/Button";
@@ -10,6 +11,7 @@ import {
   Dialog,
   DialogClose,
   DialogContent,
+  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
@@ -20,6 +22,16 @@ import { Textarea } from "../primitives/Textarea";
 type AddBookmarkDialogProps = {
   open: boolean;
   onOpenChange: (open: boolean) => void;
+};
+
+const getValidUrl = (value: string) => {
+  try {
+    const normalized = value.startsWith("http") ? value : `https://${value}`;
+
+    return new URL(normalized);
+  } catch {
+    return null;
+  }
 };
 
 export default function AddBookmarkModal({
@@ -33,19 +45,31 @@ export default function AddBookmarkModal({
   const [favicon, setFavicon] = useState("");
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const router = useRouter();
 
   const handleUrlChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setUrl(value);
-
-    const result = createBookmarkSchema.shape.url.safeParse(value);
-    if (result.success) {
-      const hostname = new URL(value).hostname;
-      setFavicon(`https://www.google.com/s2/favicons?domain=${hostname}&sz=64`);
-    } else {
-      setFavicon("");
-    }
+    setUrl(e.target.value);
   };
+
+  useEffect(() => {
+    if (!url) {
+      setFavicon("");
+      return;
+    }
+
+    const timeout = setTimeout(() => {
+      const parsed = getValidUrl(url);
+
+      if (!parsed || !parsed.hostname.includes(".")) {
+        setFavicon("");
+        return;
+      }
+
+      setFavicon(`https://icons.duckduckgo.com/ip3/${parsed.hostname}.ico`);
+    }, 400);
+
+    return () => clearTimeout(timeout);
+  }, [url]);
 
   const handleAdd = async () => {
     const parsed = createBookmarkSchema.safeParse({
@@ -61,6 +85,7 @@ export default function AddBookmarkModal({
 
     if (!parsed.success) {
       const fieldErrors = parsed.error.flatten().fieldErrors;
+
       setErrors(
         Object.fromEntries(
           Object.entries(fieldErrors).map(([key, val]) => [
@@ -69,6 +94,7 @@ export default function AddBookmarkModal({
           ]),
         ),
       );
+
       return;
     }
 
@@ -91,8 +117,10 @@ export default function AddBookmarkModal({
 
       onOpenChange(false);
       toast.success("Bookmark added successfully.");
+
+      router.refresh();
     } catch (error) {
-      console.error("Failed to add bookmark:", error);
+      console.error(error);
       toast.error("Something went wrong. Please try again.");
     } finally {
       setLoading(false);
@@ -106,23 +134,22 @@ export default function AddBookmarkModal({
         onOpenAutoFocus={(e) => e.preventDefault()}
       >
         <DialogHeader>
-          <DialogTitle className="text-preset-1">Add Bookmark</DialogTitle>
+          <DialogTitle>Add Bookmark</DialogTitle>
+          <DialogDescription>
+            Save a new website bookmark with title, URL, tags, and description.
+          </DialogDescription>
         </DialogHeader>
-        <label htmlFor="title">
-          Title <span className="text-red-500">*</span>
-        </label>
+
+        <label htmlFor="title">Title *</label>
         <Input
           id="title"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           placeholder="Shadcn Docs"
         />
-        {errors.title && (
-          <p className="text-red-500 text-preset-5">{errors.title}</p>
-        )}
-        <label htmlFor="description">
-          Description <span className="text-red-500">*</span>
-        </label>
+        {errors.title && <p className="text-red-500">{errors.title}</p>}
+
+        <label htmlFor="description">Description *</label>
         <Textarea
           id="description"
           value={description}
@@ -130,20 +157,18 @@ export default function AddBookmarkModal({
           placeholder="A set of beautifully designed components..."
         />
         {errors.description && (
-          <p className="text-red-500 text-preset-5">{errors.description}</p>
+          <p className="text-red-500">{errors.description}</p>
         )}
-        <label htmlFor="url">
-          Website URL <span className="text-red-500">*</span>
-        </label>
+
+        <label htmlFor="url">Website URL *</label>
         <Input
           id="url"
           value={url}
           onChange={handleUrlChange}
           placeholder="https://ui.shadcn.com"
         />
-        {errors.url && (
-          <p className="text-red-500 text-preset-5">{errors.url}</p>
-        )}
+        {errors.url && <p className="text-red-500">{errors.url}</p>}
+
         {favicon && (
           <div className="flex items-center gap-2">
             <Image
@@ -153,27 +178,24 @@ export default function AddBookmarkModal({
               height={44}
               className="rounded-sm border"
             />
-            <p className="text-preset-5 text-muted-foreground">
-              Favicon preview
-            </p>
+            <p className="text-muted-foreground">Favicon preview</p>
           </div>
         )}
-        <label htmlFor="tags">
-          Tags <span className="text-red-500">*</span>
-        </label>
+
+        <label htmlFor="tags">Tags *</label>
         <Input
           id="tags"
           value={tags}
           onChange={(e) => setTags(e.target.value)}
           placeholder="UI, CSS, Components"
         />
-        {errors.tags && (
-          <p className="text-red-500 text-preset-5">{errors.tags}</p>
-        )}
+        {errors.tags && <p className="text-red-500">{errors.tags}</p>}
+
         <DialogFooter>
           <DialogClose asChild>
-            <Button variant={"secondary"}>Cancel</Button>
+            <Button variant="secondary">Cancel</Button>
           </DialogClose>
+
           <Button onClick={handleAdd} disabled={loading}>
             {loading ? "Adding..." : "Add Bookmark"}
           </Button>

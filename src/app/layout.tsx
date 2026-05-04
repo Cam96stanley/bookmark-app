@@ -1,12 +1,8 @@
 import type { Metadata } from "next";
 import { Manrope } from "next/font/google";
 import "../ui/styles/globals.css";
-import { Toaster } from "sonner";
-import { SidebarProvider } from "@/context/SidebarContext";
-import { cn } from "@/lib/utils";
-import Header from "@/ui/components/Header";
-import SideNav from "@/ui/components/SideNav";
 import { SessionProvider } from "next-auth/react";
+import { cn } from "@/lib/utils";
 
 const manrope = Manrope({
   variable: "--font-manrope",
@@ -27,9 +23,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={cn("h-full", "antialiased", manrope.variable)}>
       <body className="min-h-screen">
-        <SessionProvider>
-          {children}
-        </SessionProvider>
+        <SessionProvider>{children}</SessionProvider>
       </body>
     </html>
   );
