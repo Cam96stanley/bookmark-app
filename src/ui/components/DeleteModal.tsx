@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { useTags } from "@/context/TagContext";
 import { toast } from "@/lib/toast";
 import {
   Dialog,
@@ -27,6 +28,7 @@ export default function DeleteModal({
 }: DeleteBookmarkDialogProps) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const { refreshTags } = useTags();
 
   const handleDelete = async () => {
     if (!id) {
@@ -47,7 +49,7 @@ export default function DeleteModal({
       }
 
       onOpenChange(false);
-
+      refreshTags();
       toast.trash("Bookmark deleted.");
 
       router.refresh();

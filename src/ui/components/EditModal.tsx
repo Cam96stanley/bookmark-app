@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { useTags } from "@/context/TagContext";
 import { toast } from "@/lib/toast";
 import { updateBookmarkSchema } from "@/lib/validators/bookmark";
 import {
@@ -57,8 +58,8 @@ export default function EditModal({
 
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const { refreshTags } = useTags();
 
-  // reset when opening different bookmark
   useEffect(() => {
     if (open) {
       setTitle(initialTitle);
@@ -141,6 +142,7 @@ export default function EditModal({
       }
 
       toast.success("Bookmark updated.");
+      refreshTags();
       onOpenChange(false);
       router.refresh();
     } catch (err) {
@@ -161,7 +163,9 @@ export default function EditModal({
           <DialogTitle className="text-preset-1">Edit Bookmark</DialogTitle>
         </DialogHeader>
 
-        <label className="text-preset-4" htmlFor="title">Title *</label>
+        <label className="text-preset-4" htmlFor="title">
+          Title *
+        </label>
         <Input
           id="title"
           value={title}
@@ -169,7 +173,9 @@ export default function EditModal({
         />
         {errors.title && <p className="text-red-500">{errors.title}</p>}
 
-        <label className="text-preset-4" htmlFor="description">Description *</label>
+        <label className="text-preset-4" htmlFor="description">
+          Description *
+        </label>
         <Textarea
           id="description"
           value={description}
@@ -179,7 +185,9 @@ export default function EditModal({
           <p className="text-red-500">{errors.description}</p>
         )}
 
-        <label className="text-preset-4" htmlFor="url">Website URL *</label>
+        <label className="text-preset-4" htmlFor="url">
+          Website URL *
+        </label>
         <Input id="url" value={url} onChange={(e) => setUrl(e.target.value)} />
         {errors.url && <p className="text-red-500">{errors.url}</p>}
 
@@ -196,7 +204,9 @@ export default function EditModal({
           </div>
         )}
 
-        <label className="text-preset-4" htmlFor="tags">Tags *</label>
+        <label className="text-preset-4" htmlFor="tags">
+          Tags *
+        </label>
         <Input
           id="tags"
           value={tags}

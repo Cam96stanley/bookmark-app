@@ -1,7 +1,7 @@
+import { revalidatePath } from "next/cache";
 import { auth } from "@/auth";
 import { sendError, sendSuccess } from "@/lib/api/response";
 import { prisma } from "@/lib/prisma";
-import { revalidatePath } from "next/cache";
 
 export async function DELETE(
   _req: Request,

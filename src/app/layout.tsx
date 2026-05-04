@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Manrope } from "next/font/google";
 import "../ui/styles/globals.css";
 import { SessionProvider } from "next-auth/react";
+import { TagsProvider } from "@/context/TagContext";
 import { cn } from "@/lib/utils";
 
 const manrope = Manrope({
@@ -23,7 +24,9 @@ export default function RootLayout({
   return (
     <html lang="en" className={cn("h-full", "antialiased", manrope.variable)}>
       <body className="min-h-screen">
-        <SessionProvider>{children}</SessionProvider>
+        <TagsProvider>
+          <SessionProvider>{children}</SessionProvider>
+        </TagsProvider>
       </body>
     </html>
   );

@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import type React from "react";
 import { useEffect, useState } from "react";
+import { useTags } from "@/context/TagContext";
 import { toast } from "@/lib/toast";
 import { createBookmarkSchema } from "@/lib/validators/bookmark";
 import { Button } from "../primitives/Button";
@@ -11,7 +12,6 @@ import {
   Dialog,
   DialogClose,
   DialogContent,
-  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
@@ -46,6 +46,7 @@ export default function AddBookmarkModal({
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const router = useRouter();
+  const { refreshTags } = useTags();
 
   const handleUrlChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUrl(e.target.value);
@@ -116,6 +117,7 @@ export default function AddBookmarkModal({
       }
 
       onOpenChange(false);
+      refreshTags();
       toast.success("Bookmark added successfully.");
 
       router.refresh();
@@ -137,7 +139,9 @@ export default function AddBookmarkModal({
           <DialogTitle className="text-preset-1">Add Bookmark</DialogTitle>
         </DialogHeader>
 
-        <label className="text-preset-4" htmlFor="title">Title *</label>
+        <label className="text-preset-4" htmlFor="title">
+          Title *
+        </label>
         <Input
           id="title"
           value={title}
@@ -146,7 +150,9 @@ export default function AddBookmarkModal({
         />
         {errors.title && <p className="text-red-500">{errors.title}</p>}
 
-        <label className="text-preset-4" htmlFor="description">Description *</label>
+        <label className="text-preset-4" htmlFor="description">
+          Description *
+        </label>
         <Textarea
           id="description"
           value={description}
@@ -157,7 +163,9 @@ export default function AddBookmarkModal({
           <p className="text-red-500">{errors.description}</p>
         )}
 
-        <label className="text-preset-4" htmlFor="url">Website URL *</label>
+        <label className="text-preset-4" htmlFor="url">
+          Website URL *
+        </label>
         <Input
           id="url"
           value={url}
@@ -179,7 +187,9 @@ export default function AddBookmarkModal({
           </div>
         )}
 
-        <label className="text-preset-4" htmlFor="tags">Tags *</label>
+        <label className="text-preset-4" htmlFor="tags">
+          Tags *
+        </label>
         <Input
           id="tags"
           value={tags}

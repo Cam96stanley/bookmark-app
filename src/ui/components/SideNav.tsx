@@ -3,9 +3,10 @@
 import { ArchiveIcon } from "@phosphor-icons/react";
 import { HouseIcon, XIcon } from "@phosphor-icons/react/ssr";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { useSidebar } from "@/context/SidebarContext";
+import { useTags } from "@/context/TagContext";
 import { cn } from "@/lib/utils";
-import { bookmarks } from "../../data/data";
 import NavItem from "./NavItem";
 import TagItem from "./TagItem";
 
@@ -14,32 +15,17 @@ const navItems = [
     icon: <HouseIcon size={20} />,
     label: "Home",
     link: "/",
-    isActive: false,
   },
   {
     icon: <ArchiveIcon size={20} />,
     label: "Archived",
     link: "/archived",
-    isActive: false,
   },
 ];
 
-const tagCounts = bookmarks
-  .flatMap((bookmark) => bookmark.tags)
-  .reduce(
-    (acc, tag) => {
-      acc[tag] = (acc[tag] ?? 0) + 1;
-      return acc;
-    },
-    {} as Record<string, number>,
-  );
-
-const tags = Object.entries(tagCounts).map(([label, total]) => ({
-  label,
-  total,
-}));
-
 export default function SideNav() {
+  const pathname = usePathname();
+  const { tags, isLoading, error } = useTags();
   const { open, toggleSidebar } = useSidebar();
 
   return (
@@ -74,7 +60,7 @@ export default function SideNav() {
               icon={item.icon}
               label={item.label}
               link={item.link}
-              isActive={item.isActive}
+              isActive={pathname === item.link}
               onClick={toggleSidebar}
             />
           ))}
@@ -84,6 +70,10 @@ export default function SideNav() {
             Tags
           </p>
           <div className="px-7 flex flex-col gap-4 overflow-y-auto">
+            {isLoading && (
+              <p className="text-light-gray text-preset-5">Loading...</p>
+            )}
+            {error && <p className="text-red-500 text-preset-5">{error}</p>}
             {tags.map((tag) => (
               <TagItem key={tag.label} label={tag.label} total={tag.total} />
             ))}
