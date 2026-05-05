@@ -1,11 +1,6 @@
 "use client";
 
-import {
-  createContext,
-  useCallback,
-  useContext,
-  useState,
-} from "react";
+import { createContext, useCallback, useContext, useState } from "react";
 
 type Tag = { label: string; total: number };
 
@@ -23,7 +18,10 @@ type TagsProviderProps = {
 
 const TagContext = createContext<TagContextType | null>(null);
 
-export function TagsProvider({ children, initialTags = [] }: TagsProviderProps) {
+export function TagsProvider({
+  children,
+  initialTags = [],
+}: TagsProviderProps) {
   const [tags, setTags] = useState<Tag[]>(initialTags);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -38,7 +36,9 @@ export function TagsProvider({ children, initialTags = [] }: TagsProviderProps) 
   }, []);
 
   return (
-    <TagContext.Provider value={{ tags, isLoading, error, refreshTags: fetchTags }}>
+    <TagContext.Provider
+      value={{ tags, isLoading, error, refreshTags: fetchTags }}
+    >
       {children}
     </TagContext.Provider>
   );

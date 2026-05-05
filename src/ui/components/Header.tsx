@@ -7,12 +7,12 @@ import {
 } from "@phosphor-icons/react/ssr";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
+import { useSearch } from "@/context/SearchContext";
 import { useSidebar } from "@/context/SidebarContext";
 import { Button } from "../primitives/Button";
 import { Input } from "../primitives/Input";
 import AddBookmarkModal from "./AddBookmarkModal";
 import UserActionsButton from "./UserActionsButton";
-import { useSearch } from "@/context/SearchContext";
 
 export default function Header() {
   const { toggleSidebar } = useSidebar();

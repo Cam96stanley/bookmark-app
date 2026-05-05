@@ -1,10 +1,10 @@
 "use client";
 
+import Fuse from "fuse.js";
 import { useFilter } from "@/context/FilterContext";
+import { useSearch } from "@/context/SearchContext";
 import { useSort } from "@/context/SortContext";
 import BookmarkCard from "./BookmarkCard";
-import Fuse from "fuse.js";
-import { useSearch } from "@/context/SearchContext";
 
 type Bookmark = {
   id: string;

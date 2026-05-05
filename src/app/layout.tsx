@@ -3,9 +3,9 @@ import { Manrope } from "next/font/google";
 import "../ui/styles/globals.css";
 import { SessionProvider } from "next-auth/react";
 import { FilterProvider } from "@/context/FilterContext";
+import { SearchProvider } from "@/context/SearchContext";
 import { SortProvider } from "@/context/SortContext";
 import { cn } from "@/lib/utils";
-import { SearchProvider } from "@/context/SearchContext";
 
 const manrope = Manrope({
   variable: "--font-manrope",
@@ -26,13 +26,13 @@ export default function RootLayout({
   return (
     <html lang="en" className={cn("h-full", "antialiased", manrope.variable)}>
       <body className="min-h-screen">
-          <FilterProvider>
-            <SortProvider>
-              <SearchProvider>
-                <SessionProvider>{children}</SessionProvider>
-              </SearchProvider>
-            </SortProvider>
-          </FilterProvider>
+        <FilterProvider>
+          <SortProvider>
+            <SearchProvider>
+              <SessionProvider>{children}</SessionProvider>
+            </SearchProvider>
+          </SortProvider>
+        </FilterProvider>
       </body>
     </html>
   );

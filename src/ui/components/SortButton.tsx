@@ -18,15 +18,15 @@ export default function SortButton() {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-  function handleClickOutside(e: MouseEvent) {
-    if (ref.current && !ref.current.contains(e.target as Node)) {
-      setOpen(false);
+    function handleClickOutside(e: MouseEvent) {
+      if (ref.current && !ref.current.contains(e.target as Node)) {
+        setOpen(false);
+      }
     }
-  }
 
-  document.addEventListener("click", handleClickOutside);  // ← change mousedown to click
-  return () => document.removeEventListener("click", handleClickOutside);
-}, []);
+    document.addEventListener("click", handleClickOutside); // ← change mousedown to click
+    return () => document.removeEventListener("click", handleClickOutside);
+  }, []);
 
   const activeLabel = sortOptions.find((o) => o.value === sort)?.label ?? null;
 

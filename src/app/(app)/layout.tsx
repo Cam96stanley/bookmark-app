@@ -1,11 +1,15 @@
 import { auth } from "@/auth";
-import { prisma } from "@/lib/prisma";
-import { TagsProvider } from "@/context/TagContext";
 import { SidebarProvider } from "@/context/SidebarContext";
+import { TagsProvider } from "@/context/TagContext";
+import { prisma } from "@/lib/prisma";
 import Header from "@/ui/components/Header";
 import SideNav from "@/ui/components/SideNav";
 
-export default async function AppLayout({ children }: { children: React.ReactNode }) {
+export default async function AppLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const session = await auth();
 
   const bookmarks = session?.user?.id
@@ -17,10 +21,13 @@ export default async function AppLayout({ children }: { children: React.ReactNod
 
   const tagCounts = bookmarks
     .flatMap((b) => b.tags)
-    .reduce((acc, tag) => {
-      acc[tag] = (acc[tag] ?? 0) + 1;
-      return acc;
-    }, {} as Record<string, number>);
+    .reduce(
+      (acc, tag) => {
+        acc[tag] = (acc[tag] ?? 0) + 1;
+        return acc;
+      },
+      {} as Record<string, number>,
+    );
 
   const initialTags = Object.entries(tagCounts).map(([label, total]) => ({
     label,
