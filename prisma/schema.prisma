@@ -21,7 +21,7 @@ model Bookmark {
   id          String    @id @default(cuid())
   title       String
   favicon     String
-  url         String    @unique
+  url         String
   description String
   isArchived  Boolean   @default(false)
   visitCount  Int       @default(0)
@@ -31,4 +31,6 @@ model Bookmark {
   updatedAt   DateTime  @updatedAt
   userId      String
   user        User      @relation(fields: [userId], references: [id])
+
+  @@unique([url, userId])
 }

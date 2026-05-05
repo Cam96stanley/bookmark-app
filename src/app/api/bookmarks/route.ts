@@ -32,7 +32,8 @@ export async function POST(request: Request) {
     revalidatePath("/");
 
     return sendSuccess(bookmark, 201);
-  } catch (_error) {
+  } catch (error) {
+    console.log(error);
     return sendError("Failed to create bookmark", 500);
   }
 }
