@@ -74,7 +74,7 @@ export default function SideNav() {
               <p className="text-light-gray text-preset-5">Loading...</p>
             )}
             {error && <p className="text-red-500 text-preset-5">{error}</p>}
-            {tags.map((tag) => (
+            {(tags ?? []).map((tag) => (
               <TagItem key={tag.label} label={tag.label} total={tag.total} />
             ))}
           </div>

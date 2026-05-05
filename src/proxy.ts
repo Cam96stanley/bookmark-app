@@ -1,10 +1,9 @@
-// proxy.ts
 import NextAuth from "next-auth";
 import { authConfig } from "../auth.config";
 
 const { auth } = NextAuth(authConfig);
 
-export const proxy = auth((req) => {
+export default auth((req) => {
   const isAuthPage =
     req.nextUrl.pathname.startsWith("/login") ||
     req.nextUrl.pathname.startsWith("/signup");
