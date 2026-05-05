@@ -50,20 +50,20 @@ export default function ActionsButton({
     try {
       setOpen(false);
       window.open(url);
-      
+
       const res = await fetch(`/api/bookmarks/${id}/view`, { method: "PATCH" });
       const json = await res.json();
       console.log(json);
-  
+
       window.dispatchEvent(
         new CustomEvent("bookmark:visited", {
           detail: {
             bookmarkId: id,
             visitCount: json.data.visitCount,
             lastVisited: json.data.lastVisited,
-          }
-        })
-      )
+          },
+        }),
+      );
     } catch (error) {
       console.error("Failed to update error", error);
     }

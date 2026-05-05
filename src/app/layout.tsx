@@ -2,9 +2,10 @@ import type { Metadata } from "next";
 import { Manrope } from "next/font/google";
 import "../ui/styles/globals.css";
 import { SessionProvider } from "next-auth/react";
+import { FilterProvider } from "@/context/FilterContext";
+import { SortProvider } from "@/context/SortContext";
 import { TagsProvider } from "@/context/TagContext";
 import { cn } from "@/lib/utils";
-import { FilterProvider } from "@/context/FilterContext";
 
 const manrope = Manrope({
   variable: "--font-manrope",
@@ -27,7 +28,9 @@ export default function RootLayout({
       <body className="min-h-screen">
         <TagsProvider>
           <FilterProvider>
-          <SessionProvider>{children}</SessionProvider>
+            <SortProvider>
+              <SessionProvider>{children}</SessionProvider>
+            </SortProvider>
           </FilterProvider>
         </TagsProvider>
       </body>

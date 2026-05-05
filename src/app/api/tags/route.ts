@@ -1,5 +1,4 @@
 import { auth } from "@/auth";
-import { bookmarks } from "@/data/data";
 import { sendError, sendSuccess } from "@/lib/api/response";
 import { prisma } from "@/lib/prisma";
 

@@ -18,12 +18,14 @@ export default function BookmarkStats({
   addedDate,
 }: Props) {
   const [views, setViews] = useState(initialViews ?? 0);
-  const [lastViewedDate, setLastViewedDate] = useState<Date | null>(initialLastViewedDate ?? null);
+  const [lastViewedDate, setLastViewedDate] = useState<Date | null>(
+    initialLastViewedDate ?? null,
+  );
 
   useEffect(() => {
     const handler = (e: Event) => {
       const { bookmarkId, visitCount, lastVisited } = (e as CustomEvent).detail;
-      console.log("event received", { bookmarkId, visitCount, lastVisited});
+      console.log("event received", { bookmarkId, visitCount, lastVisited });
       console.log("this card id:", id);
       if (bookmarkId === id) {
         console.log("match! updating to:", visitCount);

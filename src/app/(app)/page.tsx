@@ -19,7 +19,7 @@ export default async function Home() {
         <h1 className="text-preset-1">All Bookmarks</h1>
         <SortButton />
       </div>
-        <FilteredBookmarks bookmarks={bookmarks} />
+      <FilteredBookmarks bookmarks={bookmarks} />
     </div>
   );
 }
