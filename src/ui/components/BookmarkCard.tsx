@@ -1,11 +1,6 @@
-import {
-  CalendarBlankIcon,
-  ClockIcon,
-  EyeIcon,
-} from "@phosphor-icons/react/ssr";
 import Image from "next/image";
-import { formatDate } from "@/lib/formatDate";
 import ActionsButton from "./ActionsButton";
+import BookmarkStats from "./BookmarkStats";
 
 type BookmarkCardProps = {
   id: string;
@@ -71,21 +66,13 @@ export default function BookmarkCard({
           ))}
         </div>
       </div>
-      <div className="border-t flex gap-4 py-4 -mx-4 px-4">
-        <div className="flex items-center gap-1">
-          <EyeIcon size={12} />
-          <p className="text-preset-5">{views}</p>
-        </div>
-        <div className="flex items-center gap-1">
-          <ClockIcon size={12} />
-          <p className="text-preset-5">
-            {lastViewedDate && formatDate(lastViewedDate)}
-          </p>
-        </div>
-        <div className="flex items-center gap-1">
-          <CalendarBlankIcon size={12} />
-          <p className="text-preset-5">{formatDate(addedDate)}</p>
-        </div>
+      <div className="-mx-4">
+        <BookmarkStats
+          id={id}
+          initialViews={views}
+          initialLastViewedDate={lastViewedDate}
+          addedDate={addedDate}
+        />
       </div>
     </div>
   );

@@ -46,15 +46,35 @@ export default function ActionsButton({
   const [archiveOpen, setArchiveOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
+  const handleVisit = async () => {
+    try {
+      setOpen(false);
+      window.open(url);
+      
+      const res = await fetch(`/api/bookmarks/${id}/view`, { method: "PATCH" });
+      const json = await res.json();
+      console.log(json);
+  
+      window.dispatchEvent(
+        new CustomEvent("bookmark:visited", {
+          detail: {
+            bookmarkId: id,
+            visitCount: json.data.visitCount,
+            lastVisited: json.data.lastVisited,
+          }
+        })
+      )
+    } catch (error) {
+      console.error("Failed to update error", error);
+    }
+  };
+
   const activeActions: DropdownItem[] = [
     {
       id: 1,
       label: "Visit",
       iconLeft: <ArrowSquareOutIcon />,
-      onClick: () => {
-        setOpen(false);
-        window.open(url);
-      },
+      onClick: handleVisit,
     },
     {
       id: 2,
@@ -96,7 +116,7 @@ export default function ActionsButton({
       id: 1,
       label: "Visit",
       iconLeft: <ArrowSquareOutIcon />,
-      onClick: () => window.open(url),
+      onClick: handleVisit,
     },
     {
       id: 2,
