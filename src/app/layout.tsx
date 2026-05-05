@@ -5,6 +5,7 @@ import { SessionProvider } from "next-auth/react";
 import { FilterProvider } from "@/context/FilterContext";
 import { SortProvider } from "@/context/SortContext";
 import { cn } from "@/lib/utils";
+import { SearchProvider } from "@/context/SearchContext";
 
 const manrope = Manrope({
   variable: "--font-manrope",
@@ -27,7 +28,9 @@ export default function RootLayout({
       <body className="min-h-screen">
           <FilterProvider>
             <SortProvider>
-              <SessionProvider>{children}</SessionProvider>
+              <SearchProvider>
+                <SessionProvider>{children}</SessionProvider>
+              </SearchProvider>
             </SortProvider>
           </FilterProvider>
       </body>

@@ -3,6 +3,8 @@
 import { useFilter } from "@/context/FilterContext";
 import { useSort } from "@/context/SortContext";
 import BookmarkCard from "./BookmarkCard";
+import Fuse from "fuse.js";
+import { useSearch } from "@/context/SearchContext";
 
 type Bookmark = {
   id: string;
@@ -24,11 +26,19 @@ export default function FilteredBookmarks({
 }) {
   const { selectedTags } = useFilter();
   const { sort } = useSort();
+  const { query } = useSearch();
+
+  const fuse = new Fuse(bookmarks, {
+    keys: ["title", "description", "url", "tags"],
+    threshold: 0.3,
+  });
+
+  const searched = query ? fuse.search(query).map((r) => r.item) : bookmarks;
 
   const filtered =
     selectedTags.length === 0
-      ? bookmarks
-      : bookmarks.filter((b) =>
+      ? searched
+      : searched.filter((b) =>
           selectedTags.every((tag) => b.tags.includes(tag)),
         );
 
