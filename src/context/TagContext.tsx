@@ -4,7 +4,6 @@ import {
   createContext,
   useCallback,
   useContext,
-  useEffect,
   useState,
 } from "react";
 
@@ -17,30 +16,29 @@ type TagContextType = {
   refreshTags: () => void;
 };
 
+type TagsProviderProps = {
+  children: React.ReactNode;
+  initialTags?: Tag[];
+};
+
 const TagContext = createContext<TagContextType | null>(null);
 
-export function TagsProvider({ children }: { children: React.ReactNode }) {
-  const [tags, setTags] = useState<Tag[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+export function TagsProvider({ children, initialTags = [] }: TagsProviderProps) {
+  const [tags, setTags] = useState<Tag[]>(initialTags);
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const fetchTags = useCallback(() => {
     setIsLoading(true);
-    fetch("/api/tags")
+    fetch("/api/tags", { credentials: "include" })
       .then((res) => res.json())
-      .then((json) => setTags(json.data))
-      .catch(() => setError("Failed to laod tags"))
+      .then((json) => setTags(json.data ?? []))
+      .catch(() => setError("Failed to load tags"))
       .finally(() => setIsLoading(false));
   }, []);
 
-  useEffect(() => {
-    fetchTags();
-  }, [fetchTags]);
-
   return (
-    <TagContext.Provider
-      value={{ tags, isLoading, error, refreshTags: fetchTags }}
-    >
+    <TagContext.Provider value={{ tags, isLoading, error, refreshTags: fetchTags }}>
       {children}
     </TagContext.Provider>
   );

@@ -53,7 +53,7 @@ export default function SideNav() {
             <XIcon size={20} />
           </button>
         </div>
-        <div className="mt-1.25 px-4">
+        <div className="mt-1.25 px-4 flex flex-col gap-2">
           {navItems.map((item) => (
             <NavItem
               key={item.label}
