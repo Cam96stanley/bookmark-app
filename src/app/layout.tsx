@@ -16,7 +16,8 @@ export const metadata: Metadata = {
   title: "Bookmark Manager",
   description:
     "Manage your web bookmarks in one place. Add, edit, archive, and filter bookmarks by tags, title, and more.",
-};
+  manifest: "/manifest.json"
+  };
 
 export default function RootLayout({
   children,
