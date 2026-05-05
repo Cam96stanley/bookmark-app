@@ -120,6 +120,13 @@ export default function AddBookmarkModal({
       refreshTags();
       toast.success("Bookmark added successfully.");
 
+      setTitle("")
+      setDescription('')
+      setUrl("")
+      setTags("")
+      setFavicon("")
+      setErrors({})
+
       router.refresh();
     } catch (error) {
       console.error(error);

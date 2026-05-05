@@ -4,6 +4,7 @@ import "../ui/styles/globals.css";
 import { SessionProvider } from "next-auth/react";
 import { TagsProvider } from "@/context/TagContext";
 import { cn } from "@/lib/utils";
+import { FilterProvider } from "@/context/FilterContext";
 
 const manrope = Manrope({
   variable: "--font-manrope",
@@ -25,7 +26,9 @@ export default function RootLayout({
     <html lang="en" className={cn("h-full", "antialiased", manrope.variable)}>
       <body className="min-h-screen">
         <TagsProvider>
+          <FilterProvider>
           <SessionProvider>{children}</SessionProvider>
+          </FilterProvider>
         </TagsProvider>
       </body>
     </html>
